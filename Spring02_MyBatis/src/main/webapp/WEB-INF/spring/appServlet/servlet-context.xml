@@ -18,7 +18,7 @@
 	             maxWaitMillis="-1"/>          
    -->
    
-   <!-- 참조값은 ref, 숫자나 문자는 value 
+   <!--
    		mem1=new MemberDto()
    		mem1.setNum(1)과 같음. 
 
@@ -29,6 +29,7 @@
    </beans:bean>
    -->
    
+   <!--  참조값은 ref, 숫자나 문자는 value  -->
    <beans:bean id="dataSource" 
       class="org.springframework.jndi.JndiObjectFactoryBean">
       <beans:property name="jndiName" value="java:comp/env/jdbc/myoracle"/>
