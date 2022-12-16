@@ -17,6 +17,18 @@
 	             username="scott" password="tiger" maxTotal="20" maxIdle="10"
 	             maxWaitMillis="-1"/>          
    -->
+   
+   <!-- 참조값은 ref, 숫자나 문자는 value 
+   		mem1=new MemberDto()
+   		mem1.setNum(1)과 같음. 
+
+   <beans:bean id="mem1" class="com.gura.spring02.member.dto.MemberDto">
+   		<beans:property name="num" value = "1"/>
+   		<beans:property name="name" value = "김구라"/>
+   		<beans:property name="addr" value = "노량진"/>
+   </beans:bean>
+   -->
+   
    <beans:bean id="dataSource" 
       class="org.springframework.jndi.JndiObjectFactoryBean">
       <beans:property name="jndiName" value="java:comp/env/jdbc/myoracle"/>
@@ -32,6 +44,8 @@
    <!-- 
       SqlSessionFactory 객체 
       Configuration.xml 문서가 어디에 있는지 알려야 한다. 
+      value에서 classpath: 은 src/main/resources 폴더를 가리킨다.
+      따라서 classpath:Configuration.xml은 src/main/resources 폴더 안에 존재해야한다.
    -->
    <beans:bean id="sessionFactory" 
       class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -49,6 +63,7 @@
       SqlSession 인터페이스를 구현한 
       SqlSessionTemplate(SqlSession) 객체 
       Dao 가 의존하는 객체 
+      constructo-arg은 생성자의 인자에 넣어준다는 뜻
    -->
    <beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
       <beans:constructor-arg name="sqlSessionFactory" 
