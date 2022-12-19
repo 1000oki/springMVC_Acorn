@@ -7,6 +7,13 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- bean설정을 통해 MemberDaoImpl설정
+	<beans:bean class="com.gura.spring02.member.dao.MemberDaoImpl">
+	</beans:bean>
+	하지만 우린 component scan을 통해 bean을 설정할 수 있음.
+	적절한 어노테이션을 사용해줘야함.
+	 -->
+	 
 	<!-- 
 	     JNDI 데이터 소스 객체 얻어오는 설정   
 	     Servers/context.xml 에 설정된 oracle 접속정보 가 있어야 된다. 
@@ -65,6 +72,9 @@
       SqlSessionTemplate(SqlSession) 객체 
       Dao 가 의존하는 객체 
       constructo-arg은 생성자의 인자에 넣어준다는 뜻
+      
+      class SqlSessionTemplate implements SqlSession{ }이기 때문에
+      즉, SqlSessionTemplate는 SqlSession을 주입 받기 때문에 Dao에서 SqlSessionTemplate가 아닌 SqlSession으로 써도 된다.
    -->
    <beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
       <beans:constructor-arg name="sqlSessionFactory" 
@@ -100,8 +110,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 어떤 패키지를 component scan을 할지에 대한 설정, 하위 패키지는 자동으로 포함된다.-->
 	<context:component-scan base-package="com.gura.spring02" />
-	
-	
-	
+		
 </beans:beans>
