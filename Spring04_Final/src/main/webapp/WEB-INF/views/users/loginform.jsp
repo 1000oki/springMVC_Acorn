@@ -11,7 +11,7 @@
 <body>
 	<div class="container">
       	<h1>로그인 폼 입니다.</h1>
-	    <form action="${pageContext.request.contextPath}/users/login.do" method="post">
+	    <form action="${pageContext.request.contextPath}/users/login" method="post">
 	    	<c:choose>
 	            <c:when test="${ empty param.url }">
 	               <input type="hidden" name="url" value="${pageContext.request.contextPath}/"/>
