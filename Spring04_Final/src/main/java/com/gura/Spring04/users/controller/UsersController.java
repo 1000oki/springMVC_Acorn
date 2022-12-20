@@ -62,9 +62,19 @@ public class UsersController {
 		return mView;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/users/logout")
+	@RequestMapping("/users/logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		// 세션에서 id 라는 키값으로 저장된 값 삭제
+		session.removeAttribute("id");
 		return "users/logout";
+	}
+	
+	// 개인 정보 보기 요청처리
+	@RequestMapping("/users/info")
+	public ModelAndView info(HttpSession session, ModelAndView mView) {
+		service.getInfo(session, mView);
+		
+		mView.setViewName("users/info");
+		return mView;
 	}
 }

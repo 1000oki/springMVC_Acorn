@@ -9,9 +9,9 @@
 <title>/users/logout.jsp</title>
 </head>
 <body>
-	<div class="container">
-		<p>로그아웃 되었습니다.</p>
-		<a href="${pageContext.request.contextPath}/">확인</a>
-	</div>
+	<script>
+		alert("로그아웃되었습니다.");
+		location.href="${pageContext.request.contextPath}/";
+	</script>
 </body>
 </html>
