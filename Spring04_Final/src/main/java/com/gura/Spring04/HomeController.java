@@ -24,5 +24,4 @@ public class HomeController {
 		// /WEB-INF/views/home.jsp 페이지로 응답을 위임 시키기(forward 이동)
 		return "home";
 	}
-	
 }

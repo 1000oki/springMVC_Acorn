@@ -111,8 +111,16 @@ public class UsersServiceImpl implements UsersService{
 
 	@Override
 	public void updateUser(UsersDto dto, HttpSession session) {
-		// TODO Auto-generated method stub
-		
+		// 수정할 회원의 아이디
+		String id = (String)session.getAttribute("id");
+		// dto에 id도 넣어준다.
+		dto.setId(id);
+		// 만일 프로필 이미지를 등록하지 않은 상태이면
+		if(dto.getProfile().equals("empty")) {
+			// users 테이블의 profile 칼럼을 null인 상태로 유지하기 위해 profile에 null을 넣어준다.
+			dto.setProfile(null);
+		}
+		dao.update(dto);
 	}
 
 	@Override

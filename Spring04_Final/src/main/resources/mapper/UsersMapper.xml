@@ -19,9 +19,27 @@
 		WHERE id=#{id}
 	</update>
 	
+	<!--
+		mybatis는 null이 넘어오면 형식을 인식하지 못함. 
+		따라서 오류가 발생함.
+		아래와 같이 jdbcType으로 형식을 알려주든지, 조건문을 걸어줘야함.
+	 
+		int, long, float, double, String type에 대응되는 
+		
+		jdbcType 종류
+		
+		INTEGER, BIGINT, FLOAT, DOUBLE, VARCHAR
+	 -->
+	
 	<update id="update" parameterType="com.gura.Spring04.users.dto.UsersDto">
 		UPDATE users
-		SET email=#{email}, profile=#{profile}
+		SET email=#{email}, profile=#{profile, jdbcType=VARCHAR}
+		WHERE id=#{id}
+	</update>
+	
+	<update id="update2" parameterType="com.gura.Spring04.users.dto.UsersDto">
+		UPDATE users
+		SET email=#{email} <if test="profile != null">, profile=#{profile}</if>
 		WHERE id=#{id}
 	</update>
 	

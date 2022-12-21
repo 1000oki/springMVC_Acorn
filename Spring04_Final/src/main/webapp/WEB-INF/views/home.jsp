@@ -29,7 +29,7 @@
 		</ul>
 		<h3>공지사항 입니다.</h3>
 		<ul>
-			<c:forEach var="tmp" items="${requestScope.noticeList }">
+			<c:forEach var="tmp" items="${noticeList }">
 				<li>${tmp }</li> 
 			</c:forEach>
 		</ul>
