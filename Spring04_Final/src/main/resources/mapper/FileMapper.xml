@@ -22,18 +22,44 @@
 	</delete>
 	
 	<!-- 모든 파일 정보 가져오기 -->
-	<select id="getList" parameterType="fileDto" resultType="fileDto">
-		SELECT *
-		FROM (SELECT result1.*, ROWNUM AS rnum
-			  FROM (SELECT num, writer, title, orgFileName, saveFileName, fileSize, regdate
-			  		FROM board_file
-			  		ORDER BY num DESC) result1)
-			  	WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
-	</select>
+	 <select id="getList" parameterType="fileDto" resultType="fileDto">
+      SELECT *
+      FROM
+         (SELECT result1.*, ROWNUM AS rnum
+         FROM
+            (SELECT num,writer,title,orgFileName,saveFileName,fileSize,regdate
+            FROM board_file
+            <choose>
+               <when test="title != null and orgFileName != null">
+                  WHERE title LIKE '%'||#{title}||'%' OR orgFileName LIKE '%'||#{orgFileName}||'%'
+               </when>
+               <when test="title != null">
+                  WHERE title LIKE '%'||#{title}||'%'
+               </when>
+               <when test="writer != null">
+                  WHERE writer LIKE '%'||#{writer}||'%'
+               </when>
+            </choose>
+            ORDER BY num DESC) result1)
+      WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+   </select>
+
 	
 	<!-- 파일의 갯수 -->
 	<select id="getCount" parameterType="fileDto" resultType="int">
-		SELECT NVL(MAX(ROWNUM), 0)
-		FROM board_file
-	</select>
+      SELECT NVL(MAX(ROWNUM), 0)
+      FROM board_file
+      <choose>
+         <when test="title != null and orgFileName != null">
+            WHERE title LIKE '%'||#{title}||'%' OR orgFileName LIKE '%'||#{orgFileName}||'%'
+         </when>
+         <when test="title != null">
+            WHERE title LIKE '%'||#{title}||'%'
+         </when>
+         <when test="writer != null">
+            WHERE writer LIKE '%'||#{writer}||'%'
+         </when>
+      </choose>
+   </select>
+
 </mapper>
