@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<!-- 파일 정보 저장 -->
+	<insert id="insert" parameterType="fileDto">
+		INSERT INTO board_file
+		(num, writer, title, orgFileName, saveFileName, fileSize, regdate)
+		VALUES(board_file_seq.NEXTVAL, #{writer}, #{title}, #{orgFileName}, #{saveFileName}, #{fileSize}, SYSDATE)		
+	</insert>
+	
+	<!-- 파일 하나의 정보 가져오기 -->
+	<select id="getData" parameterType="int" resultType="fileDto">
+		SELECT num, writer, title, orgFileName, saveFileName, fileSize, regdate
+		FROM board_file
+		WHERE num=#{num}
+	</select>
+	
+	<!-- 파일 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_file
+		WHERE num=#{num}
+	</delete>
+	
+	<!-- 모든 파일 정보 가져오기 -->
+	<select id="getList" parameterType="fileDto" resultType="fileDto">
+		SELECT *
+		FROM (SELECT result1.*, ROWNUM AS rnum
+			  FROM (SELECT num, writer, title, orgFileName, saveFileName, fileSize, regdate
+			  		FROM board_file
+			  		ORDER BY num DESC) result1)
+			  	WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<!-- 파일의 갯수 -->
+	<select id="getCount" parameterType="fileDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM board_file
+	</select>
+</mapper>
