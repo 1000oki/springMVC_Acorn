@@ -85,7 +85,7 @@
 	      function deleteConfirm(num){
 	         let isDelete=confirm("삭제 하시겠습니까?");
 	         if(isDelete){
-	            location.href="delete.jsp?num="+num;
+	            location.href="delete?num="+num;
 	         }
 	      }
 	   </script>
