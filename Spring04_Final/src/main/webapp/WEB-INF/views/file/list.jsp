@@ -17,7 +17,7 @@
 				<h3 class="mt-3"><strong>자료실 목록 보기</strong></h3>
 			</div>
 			<div class="col text-end">
-				<a href="${pageContext.request.contextPath }/file/private/upload_form">업로드하기</a>
+				<a href="${pageContext.request.contextPath }/file/upload_form">업로드하기</a>
 			</div>
 		</div>
 		<table class = "table table-striped mt-3">
@@ -39,7 +39,7 @@
 						<td>${tmp.writer }</td>
 						<td>${tmp.title }</td>
 						<td>
-							<a href="download.jsp?num=${tmp.num }">${tmp.orgFileName }</a>
+							<a href="download?num=${tmp.num }">${tmp.orgFileName }</a>
 						</td>
 						<td>${tmp.fileSize }</td>
 						<td>${tmp.regdate }</td>
