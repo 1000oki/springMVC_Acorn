@@ -14,6 +14,6 @@
 	<mappers>
 		<mapper resource="mapper/UsersMapper.xml"/>
 		<mapper resource="mapper/FileMapper.xml"/>
-		<mapper resource="mapper/CefeMapper.xml"/>
+		<mapper resource="mapper/CafeMapper.xml"/>
 	</mappers>
 </configuration>

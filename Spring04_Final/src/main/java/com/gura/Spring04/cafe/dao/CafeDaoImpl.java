@@ -20,7 +20,7 @@ public class CafeDaoImpl implements CafeDao{
 		 *  검색기능은
 		 *  1. 제목+내용
 		 *  2. 제목
-		 *  3. 자성자
+		 *  3. 작성자
 		 *  검색 3가지 기능을 제골할 예정이다.
 		 */
 		return session.selectList("cafe.getList", dto);

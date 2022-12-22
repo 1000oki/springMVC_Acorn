@@ -82,7 +82,7 @@
 			</ul>
 		</nav>
 		<!-- 검색 폼 -->
-		<form action="list" method="get" class="justify-content-center">
+		<form action="list" method="get">
 			<label for="condition">검색조건</label>
 			<select name="condition" id="condition" >
 				<option value="title_filename" ${condition eq 'title_filename' ? 'selected' : '' }>제목+파일명</option>
