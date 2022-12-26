@@ -1,5 +1,6 @@
 package com.gura.Spring04.cafe.dto;
 
+
 public class CafeDto {
 	private int num;
 	private String writer;
@@ -9,9 +10,9 @@ public class CafeDto {
 	private String regdate;
 	private int startRowNum;
 	private int endRowNum;
-	private int prevNum; // 이전글의 글번호
-	private int nextNum; // 다음글의 글번호
-	   
+	private int prevNum;  //이전글의 글번호
+	private int nextNum;  //다음글의 글번호
+	
 	public CafeDto() {}
 
 	public CafeDto(int num, String writer, String title, String content, int viewCount, String regdate, int startRowNum,
@@ -108,6 +109,6 @@ public class CafeDto {
 	public void setNextNum(int nextNum) {
 		this.nextNum = nextNum;
 	}
-	   
+	
 	
 }
