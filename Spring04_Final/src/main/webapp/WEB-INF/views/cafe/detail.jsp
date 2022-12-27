@@ -157,6 +157,16 @@
 				}
 			</script>
 		</c:if>
+		<!-- 원글에 댓글을 작성할 폼 -->
+	   <form class="comment-form insert-form" action="comment_insert" method="post">
+	      <!-- 원글의 글번호가 댓글의 ref_group 번호가 된다. -->
+	      <input type="hidden" name="ref_group" value="${dto.num }"/>
+	      <!-- 원글의 작성자가 댓글의 대상자가 된다. -->
+	      <input type="hidden" name="target_id" value="${dto.writer }"/>
+	
+	      <textarea name="content">${empty id ? '댓글 작성을 위해 로그인이 필요 합니다.' : '' }</textarea>
+	      <button type="submit">등록</button>
+	   </form>
 	   <!-- 댓글 목록 -->
 	   <div class="comments">
 	      <ul>
@@ -227,21 +237,10 @@
 	           <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
 	      </svg>
 	   </div>
-	
-	   <!-- 원글에 댓글을 작성할 폼 -->
-	   <form class="comment-form insert-form" action="comment_insert" method="post">
-	      <!-- 원글의 글번호가 댓글의 ref_group 번호가 된다. -->
-	      <input type="hidden" name="ref_group" value="${dto.num }"/>
-	      <!-- 원글의 작성자가 댓글의 대상자가 된다. -->
-	      <input type="hidden" name="target_id" value="${dto.writer }"/>
-	
-	      <textarea name="content">${empty id ? '댓글 작성을 위해 로그인이 필요 합니다.' : '' }</textarea>
-	      <button type="submit">등록</button>
-	   </form>
 	</div>
-	<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
-	<script>
-   
+<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
+<script>
+  
    //클라이언트가 로그인 했는지 여부
    let isLogin=${ not empty id };
    
@@ -261,6 +260,14 @@
       detail
  	  페이지 로딩 시점에 만들어진 1 페이지에 해당하는 
       댓글에 이벤트 리스너 등록 하기 
+      
+      a 링크에 이벤트 리스너를 등록해야 하는데 
+      a 링크가 여러개이기 때문에 반복문을 돌면서 이벤트 리스너를 등록해야한다.
+      또한, 
+      ajax 요청을 통해서 받아온 문자열을 이용해서 새로운 댓글을 화면에 추가하게 되면 
+      거기에도 a 링크가 있는데 새로 추가한 요소에도 반복문 돌면서 이벤트 리스너를 등록해야함. 
+      그런 이유 때문에 이벤트 리스너를 등록하는 작업을 함수 안에서 하고 필요할 때마다 
+      해당 함수를 호출해서 이벤트 리스너를 일괄 등록하는 코드가 존재하는 것임.
    */
    addUpdateFormListener(".update-form");
    addUpdateListener(".update-link");
@@ -395,16 +402,16 @@
             if(current == "답글"){
                //번호를 이용해서 댓글의 댓글폼을 선택해서 보이게 한다. 
                form.style.display="block";
-               form.classList.add("animate__flash");
+               form.classList.add("animate__bounceInDown");
                this.innerText="취소";   
                form.addEventListener("animationend", function(){
-                  form.classList.remove("animate__flash");
+                  form.classList.remove("animate__bounceInDown");
                }, {once:true});
             }else if(current == "취소"){
-               form.classList.add("animate__fadeOut");
+               form.classList.add("animate__backOutUp");
                this.innerText="답글";
                form.addEventListener("animationend", function(){
-                  form.classList.remove("animate__fadeOut");
+                  form.classList.remove("animate__backOutUp");
                   form.style.display="none";
                },{once:true});
             }

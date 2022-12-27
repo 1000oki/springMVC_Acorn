@@ -85,7 +85,7 @@ public class CafeController {
 		
 		//테스트를 위해 시간 지연 시키기
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
