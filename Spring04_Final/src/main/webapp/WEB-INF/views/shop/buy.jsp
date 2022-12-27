@@ -6,9 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>/shop/buy.jsp</title>
 </head>
 <body>
-
+	<div class="container">
+		<h1>상품 구매 결과 페이지</h1>
+		<p><strong>${id }</strong> 님 상품을 정상적으로 주문 했습니다.</p>
+		<a href="list">상품 목록보기</a>
+	</div>
 </body>
 </html>

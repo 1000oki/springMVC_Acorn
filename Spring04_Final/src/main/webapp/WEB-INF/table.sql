@@ -62,3 +62,15 @@ VALUES(2, '바나나', 2000, 5);
 
 INSERT INTO shop (num,name,price,remainCount)
 VALUES(3, '귤', 3000, 5);
+
+--  sample 계좌 데이터
+INSERT INTO client_account
+(id, money, point)
+VALUES('1000oki', 10000, 0)
+
+UPDATE client_account
+SET money= 10000, point=0
+WHERE id='1000oki';
+
+UPDATE shop
+SET remainCount = 5;
