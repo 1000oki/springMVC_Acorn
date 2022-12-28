@@ -66,8 +66,19 @@ public class GalleryServiceImpl implements GalleryService{
 
 	@Override
 	public void getDetail(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		
+		int num = Integer.parseInt( request.getParameter("num") );
+		GalleryDto dto = dao.getDetail(num);
+		request.setAttribute("dto", dto);
+	}
+	
+	@Override
+	public void deleteGallery(int num) {
+		dao.delete(num);
+	}
+
+	@Override
+	public void updateGallery(GalleryDto dto) {
+		dao.update(dto);
 	}
 
 }

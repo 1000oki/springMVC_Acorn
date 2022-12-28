@@ -13,4 +13,6 @@ public interface GalleryService {
 	public Map<String, Object> saveImage(HttpServletRequest request, MultipartFile mFile);
 	public void getList(HttpServletRequest request);
 	public void getDetail(HttpServletRequest request);
+	public void deleteGallery(int num);
+	public void updateGallery(GalleryDto dto);
 }

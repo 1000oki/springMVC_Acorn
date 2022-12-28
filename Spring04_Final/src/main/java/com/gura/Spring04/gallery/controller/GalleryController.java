@@ -46,4 +46,21 @@ public class GalleryController {
 		return service.saveImage(request, image);
 	}
 	
+	@RequestMapping("/gallery/delete")
+	public String delete(int num) {
+		service.deleteGallery(num);
+		return "redirect:/gallery/list";
+	}
+	
+	@RequestMapping("/gallery/updateform")
+	public String updateform(HttpServletRequest request) {
+		service.getDetail(request);
+		return "gallery/updateform";
+	}
+	
+	@RequestMapping("/gallery/update")
+	public String update(GalleryDto dto) {
+		service.updateGallery(dto);
+		return "gallery/update";
+	}
 }

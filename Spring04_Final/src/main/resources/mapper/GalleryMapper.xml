@@ -16,5 +16,13 @@
 		FROM board_gallery
 		ORDER BY num DESC
 	</select>
-	
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_gallery
+		WHERE num=#{num}
+	</delete>
+	<update id="update" parameterType="galleryDto">
+		UPDATE board_gallery
+		SET imagePath=#{imagePath}, caption=#{caption}
+		WHERE num=#{num}
+	</update>
 </mapper>
