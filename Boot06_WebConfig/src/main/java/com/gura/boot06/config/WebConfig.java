@@ -20,7 +20,6 @@ import com.gura.boot06.MyInterceptor;
  */
 
 @Configuration
-@EnableWebMvc //스프링이 자동 설정해주는 모든 기능을 사용하기 위해서 붙여줘야함.
 public class WebConfig implements WebMvcConfigurer{
 	/*
 	 *  servlet-context.xml에서 설정했던
@@ -54,8 +53,8 @@ public class WebConfig implements WebMvcConfigurer{
 	}
 	
 	// view page의 prefix와 suffix 설정
-	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.jsp("/WEB-INF/views/", ".jsp");
-	}
+//	@Override
+//	public void configureViewResolvers(ViewResolverRegistry registry) {
+//		registry.jsp("/WEB-INF/views/", ".jsp");
+//	}
 }
