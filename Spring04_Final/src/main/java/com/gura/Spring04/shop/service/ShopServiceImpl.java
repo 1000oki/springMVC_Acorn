@@ -74,9 +74,9 @@ public class ShopServiceImpl implements ShopService{
 		String addr = "제주도 삼원타워";
 		
 		// 가상의 테스트
-		if(addr.contains("제주도")) {
-			throw new DeliveryException("제주도는 배송 불가 지역입니다.");
-		}
+		//if(addr.contains("제주도")) {
+		//	throw new DeliveryException("제주도는 배송 불가 지역입니다.");
+		//}
 		
 		dto2.setAddr(addr); // 어디로 배송할지
 		orderDao.addOrder(dto2);
