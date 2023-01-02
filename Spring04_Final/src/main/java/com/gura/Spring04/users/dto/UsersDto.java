@@ -1,5 +1,7 @@
 package com.gura.Spring04.users.dto;
 
+import org.apache.ibatis.type.Alias;
+
 public class UsersDto {
 	// 필드
 	private String id;
