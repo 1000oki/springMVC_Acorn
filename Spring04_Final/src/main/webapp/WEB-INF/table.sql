@@ -76,7 +76,7 @@ UPDATE shop
 SET remainCount = 5;
 
 
--- 이미지 겔러리를 만들기 위한 테이블 
+-- 이미지 갤러리를 만들기 위한 테이블 
 CREATE TABLE board_gallery(
    num NUMBER PRIMARY KEY,
    writer VARCHAR2(100),

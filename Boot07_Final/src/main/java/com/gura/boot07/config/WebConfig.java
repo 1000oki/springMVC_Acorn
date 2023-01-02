@@ -17,9 +17,11 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loginInterceptor)
-		.addPathPatterns("/users/*", "/gallery/*")
+		.addPathPatterns("/users/*", "/gallery/*", "/file/*", "/cafe/*")
 		.excludePathPatterns("/users/signup_form","/users/signup", "/users/loginform", "/users/login",
-				"/gallery/list", "/gallery/detail");
+				"/gallery/list", "/gallery/detail",
+				"/file/list",
+				"/cafe/list", "/cafe/detail", "/cafe/ajax_comment_list");
 	
 	}
 	
