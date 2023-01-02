@@ -17,8 +17,10 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loginInterceptor)
-		.addPathPatterns("/users/*")
-		.excludePathPatterns("/users/signup_form","/users/signup", "/users/loginform", "/users/login");
+		.addPathPatterns("/users/*", "/gallery/*")
+		.excludePathPatterns("/users/signup_form","/users/signup", "/users/loginform", "/users/login",
+				"/gallery/list", "/gallery/detail");
+	
 	}
 	
 	// resources 폴더 안에 있는 자원을 spring 컨트롤러를 거치지 않고 응답되도록 설정
