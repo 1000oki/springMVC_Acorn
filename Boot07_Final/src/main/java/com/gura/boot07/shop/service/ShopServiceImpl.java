@@ -32,10 +32,8 @@ public class ShopServiceImpl implements ShopService{
 	}
 
 	/*
-	 * 	- Spring 트랜젝션 설정 방법
-	 * 	1. pom.xml에 spring-tx dependency 추가
-	 * 	2. servlet-context.xml에 transaction 설정 추가
-	 * 	3. 트랜잭션을 관리할 서비스의 메소드에 @Transactional 어노테이션 붙이기
+	 * 	- Spring Boot 트랜젝션 설정 방법
+	 *  트랜잭션을 관리할 서비스의 메소드에 @Transactional 어노테이션 붙이기
 	 * 
 	 * 	- 프로그래머의 의도하에서 트랜잭션에 영향을 주는 Exception을 발생시키는 방법
 	 * 
