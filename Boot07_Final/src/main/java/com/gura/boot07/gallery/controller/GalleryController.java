@@ -18,15 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.boot07.gallery.dto.GalleryDto;
 import com.gura.boot07.gallery.service.GalleryService;
-
-
-
 
 @Controller
 public class GalleryController {
@@ -41,6 +37,15 @@ public class GalleryController {
 	// 이미지 데이터가 응답되어야 함.
 	// 웹브라우저에게 이미지 데이터를 응답한다고 알려야함.
 	// 응답할 이미지의 이름은 그때 그때 다르다.
+	
+	/*
+	 *  이 컨트롤러 메소드에서 응답한 byte[] 배열을 클라이언트에게 응답하는 방법
+	 *  1. @ResponseBody
+	 *  2. byte[] 배열 리턴
+	 *  
+	 *  응답된 byte[] 배열에 있는 데이터를 이미지 데이터로 클라이언트 웹브라우저가 인식하게 하는 방법
+	 *  produces = MediaType.IMAGE_JPEG_VALUE 
+	 */
 	@GetMapping(
 			value="/gallery/images/{imageName}", 
 			produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE}
@@ -50,9 +55,9 @@ public class GalleryController {
 		String absolutePath =  fileLocation+File.separator +imageName;
 		// 파일에서 읽어들일 InputStream
 		InputStream is = new FileInputStream(absolutePath); 
+		// 이미지데이터(byte)를 읽어서 배열에 담아서 클라이언트에게 응답한다.
 		return IOUtils.toByteArray(is);
 	}
-	
 	
 	//gallery list 페이지로 이동
 	@RequestMapping(value = "/gallery/list")
