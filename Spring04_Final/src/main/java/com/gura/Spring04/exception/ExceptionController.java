@@ -21,13 +21,7 @@ public class ExceptionController {
 		return mView;
 	}
 	
-	/*
-	 * Spring 프레임 워크는 DB관련 작업중에 sql Exception이 발생하면 
-	 * 해당 예외를 잡아서 DataAccessException을 발생시켜준다.
-	 * 따라서 Exception Controller에서 DataAccessException을 컨트롤할 준비가 
-	 * 되어있다면 해당 컨트롤러에서 직접 응답할 수 있다.
-	 * DataAccessException은 Transaction에 영향을 주는 Exception
-	 */
+	
 	@ExceptionHandler(DeliveryException.class)
 	public ModelAndView delivery(DeliveryException de) {
 		ModelAndView mView = new ModelAndView();
@@ -36,7 +30,13 @@ public class ExceptionController {
 		mView.setViewName("error/delivery");
 		return mView;
 	}
-	
+	/*
+	 * Spring 프레임 워크는 DB관련 작업중에 sql Exception이 발생하면 
+	 * 해당 예외를 잡아서 DataAccessException을 발생시켜준다.
+	 * 따라서 Exception Controller에서 DataAccessException을 컨트롤할 준비가 
+	 * 되어있다면 해당 컨트롤러에서 직접 응답할 수 있다.
+	 * DataAccessException은 Transaction에 영향을 주는 Exception
+	 */
 	// DB 관련 작업을 하다가 발생하는 모든 예외를 처리하는 컨트롤러
 	@ExceptionHandler(DataAccessException.class)
 	public ModelAndView dataAccess(DataAccessException dae) {
