@@ -22,7 +22,8 @@ public class WebConfig implements WebMvcConfigurer{
 				"/gallery/list", "/gallery/detail",
 				"/file/list", "/file/download",
 				"/cafe/list", "/cafe/detail", "/cafe/ajax_comment_list",
-				"/gallery/images/*");
+				"/gallery/images/*",
+				"/users/profile/*");
 	
 	}
 	

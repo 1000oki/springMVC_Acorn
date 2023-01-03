@@ -33,6 +33,19 @@ public class UsersController {
 	@Autowired
 	private UsersService service;
 	
+	@Value("${file.location}")
+	private String fileLocation;
+	
+	@GetMapping(value = "/users/profile/{profile}",
+				produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE}
+			)
+	@ResponseBody
+	public byte[] profileImage(@PathVariable("profile") String profile) throws IOException {
+		String absolutePath = fileLocation+File.separator+profile;
+		InputStream is = new FileInputStream(absolutePath);
+		return IOUtils.toByteArray(is);
+	}
+	
 	/*
 	 * 	GET 방식 /users/signup_form 요청을 처리할 메소드
 	 * 	- 요청 방식이 다르면 실행되지 않는다. 
