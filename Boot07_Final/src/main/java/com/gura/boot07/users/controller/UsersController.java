@@ -8,7 +8,9 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -66,18 +68,35 @@ public class UsersController {
 	
 	// 로그인 폼 요청 처리
 	@RequestMapping(method = RequestMethod.GET, value = "/users/loginform")
-	public String loginform() {
+	public String loginform(HttpServletRequest request) {
+		Cookie[] cooks = request.getCookies();
+		if(cooks!=null){
+			// 반복문 돌면서 쿠키 객체를 하나씩 참조해서
+			for(Cookie tmp:cooks){
+				// 저장된 키값을 읽어옴
+				String key = tmp.getName();
+				// 만일 키 값이 savedId라면
+				if(key.equals("savedId")){
+					// 쿠키 value 값을 savedId 라는 지역변수에 저장
+					request.setAttribute("savedId", tmp.getValue());
+				}
+				if(key.equals("savedPwd")){
+					request.setAttribute("savedPwd", tmp.getValue());
+
+				}
+			}
+		}
 		return "users/loginform";
 	}
 	
 	@RequestMapping("/users/login")
-	public ModelAndView login(ModelAndView mView, UsersDto dto, String url, HttpSession session) {
+	public ModelAndView login(ModelAndView mView, UsersDto dto, String url, HttpSession session, HttpServletResponse response) {
 		/*
 		 * 	서비스에서 비즈니스 로직을 처리할 때 필요로 하는 객체를 컨트롤러에서 직접 전달을 해줘야한다.
 		 * 	주로, HttpServletRequest, HttpServletResponse, HttpSession, ModelAndView
 		 * 	등등의 챛게이다.
 		 */
-		service.loginProcess(dto, session);
+		service.loginProcess(dto, session, response);
 		
 		// 로그인 후에 가야할 목적지 정보를 인코딩 하지 않는 것과 인코딩 한 것을 모두 ModelAndView 객체에 담고
 		String encodedUrl = URLEncoder.encode(url);

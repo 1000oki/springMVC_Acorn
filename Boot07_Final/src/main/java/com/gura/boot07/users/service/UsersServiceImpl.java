@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +52,31 @@ public class UsersServiceImpl implements UsersService{
 
 	// 로그인 처리를 하는 메소드
 	@Override
-	public void loginProcess(UsersDto dto, HttpSession session) {
+	public void loginProcess(UsersDto dto, HttpSession session, HttpServletResponse response) {
 		// 입력한 정보가 맞는지 여부
 		boolean isValid = false;
+		
 		// 아이디를 이용해서 회원 정보를 얻어온다.
 		UsersDto resultDto = dao.getData(dto.getId());
+		
+		if(dto.getIsSave() != null){
+			// 아이디 비밀번호를 쿠키로 응답하고 1주일동안 유지되도록함.
+			Cookie cook1 = new Cookie("savedId", dto.getId());
+			Cookie cook2 = new Cookie("savedPwd", dto.getPwd());
+			cook1.setMaxAge(60*24*7);
+			cook2.setMaxAge(60*24*7);
+			response.addCookie(cook1);
+			response.addCookie(cook2);
+		}else{
+			// 특정 키값으로 저장된 쿠키값 삭제하기(value에는 아무 값이나 넣어도 상관없다.)
+			Cookie cook1 = new Cookie("savedId", "");
+			Cookie cook2 = new Cookie("savedPwd", "");
+			cook1.setMaxAge(0);
+			cook2.setMaxAge(0);
+			response.addCookie(cook1);
+			response.addCookie(cook2);
+		}
+		
 		if(resultDto != null) {
 			// Bcrypt 클래스의 static 메소드를 이용해서 입력한 비밀번호와 암호화해서 저장된 비밀번호 일치 여부를 알아내야 한다.
 			isValid = BCrypt.checkpw(dto.getPwd(), resultDto.getPwd());
