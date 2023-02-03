@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="todo">
+	<insert id = "insert" parameterType="String">
+		INSERT INTO todo
+		(num, content, regdate)
+		VALUES(todo_seq.NEXTVAL, #{content}, SYSDATE)
+	</insert>
+	
+	<select id = "getList" parameterType="todoDto" resultType="todoDto">
+      SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num,content,TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate
+				FROM todo
+				ORDER BY num DESC) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+   </select>
+	
+	<delete id = "delete" parameterType="int">
+		DELETE FROM todo
+		WHERE num = #{num}
+	</delete>
+	
+	<select id = "getAddData" resultType="todoDto">
+		SELECT * 
+			FROM(
+			    SELECT num, content, regdate
+			    FROM todo
+			    ORDER BY num DESC)
+			WHERE ROWNUM = 1
+	</select>
+	
+	<select id="getCount" resultType="int">
+		SELECT COUNT(*)
+		FROM todo
+	</select>	
+</mapper>

@@ -28,6 +28,7 @@
 			<li><a href="cafe/list">카페 목록보기</a></li>
 			<li><a href="gallery/list">갤러리 목록보기</a></li>
 			<li><a href="shop/list">과일 사러 가기</a></li>
+			<li><a href="home2">home2</a></li>
 		</ul>
 		<h3>공지사항 입니다.</h3>
 		<ul>

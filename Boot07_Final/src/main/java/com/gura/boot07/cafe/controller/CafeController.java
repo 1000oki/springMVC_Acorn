@@ -1,6 +1,7 @@
 package com.gura.boot07.cafe.controller;
 
 
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,12 +37,13 @@ public class CafeController {
 	}
 	
 	@RequestMapping("/cafe/insert")
-	public String insert(CafeDto dto, HttpSession session) {
+	public String insert(CafeDto dto, HttpSession session, HttpServletRequest request) {
 		//글 작성자는 세션에서 얻어낸다.
 		String writer=(String)session.getAttribute("id");
 		//dto 는 글의 제목과 내용만 있으므로 글작성자는 직접 넣어준다.
 		dto.setWriter(writer);
 		service.saveContent(dto);
+		request.setAttribute("star", dto.getStar());
 		return "cafe/insert";
 	}
 	

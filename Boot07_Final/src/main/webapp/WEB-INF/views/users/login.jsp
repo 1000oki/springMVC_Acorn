@@ -21,7 +21,7 @@
 			<c:otherwise>
 	         <p>
 	            아이디 혹은 비밀 번호가 틀려요
-	            <a href="loginform.do?url=${requestScope.encodedUrl }">다시 시도</a>
+	            <a href="loginform?url=${requestScope.encodedUrl }">다시 시도</a>
 	         </p>
 	      </c:otherwise>
 	   </c:choose>

@@ -14,6 +14,8 @@ public class CafeDto {
 	private int endRowNum;
 	private int prevNum;  //이전글의 글번호
 	private int nextNum;  //다음글의 글번호
+	private int star;
+
 	
 	public CafeDto() {}
 
@@ -30,6 +32,8 @@ public class CafeDto {
 		this.endRowNum = endRowNum;
 		this.prevNum = prevNum;
 		this.nextNum = nextNum;
+		this.star = star;
+	
 	}
 
 	public int getNum() {
@@ -111,6 +115,12 @@ public class CafeDto {
 	public void setNextNum(int nextNum) {
 		this.nextNum = nextNum;
 	}
-	
+	public int getStar() {
+		return star;
+	}
+
+	public void setStar(int star) {
+		this.star = star;
+	}
 	
 }

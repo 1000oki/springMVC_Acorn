@@ -11,11 +11,54 @@
 		width: 768px;
 		height: 300px;
 	}
+		
+	.star-rating {
+	  border:solid 1px #ccc;
+	  display:flex;
+	  flex-direction: row-reverse;
+	  font-size:1em;
+	  justify-content:space-around;
+	  padding:0 .2em;
+	  text-align:center;
+	  width:5em;
+	}
+		
+	.star-rating input {
+	  display:none;
+	}
+	
+	.star-rating label {
+	  color:#ccc;
+	  cursor:pointer;
+	}
+	
+	.star-rating :checked ~ label {
+	  color:#f90;
+	}
+	
+	.star-rating label:hover,
+	.star-rating label:hover ~ label {
+	  color:#fc0;
+	}
+	
+	.sidebar{
+		position:fixed;
+		right:0;
+		margin-right : 100px;
+		border: 1px solid black;
+		padding: 5px;
+		width: 100px;
+		
+	}
+
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
+	<div class="sidebar">
+		<button>버튼</button>
+	</div>
 	<div class="container">
 		<h3 class="mt-3">새글 작성 폼입니다.</h3>
 		<form action="insert" method="post">
@@ -28,11 +71,23 @@
 				<textarea name="content" id="content" rows="10"></textarea>
 			</div>
 			<button class="btn btn-dark" type="submit" onclick="submitContents(this)">저장</button>
+			<div class="star-rating">
+			  <input type="radio" id="5-stars" name="star" value="5" />
+			  <label for="5-stars" class="star">&#9733;</label>
+			  <input type="radio" id="4-stars" name="star" value="4" />
+			  <label for="4-stars" class="star">&#9733;</label>
+			  <input type="radio" id="3-stars" name="star" value="3" />
+			  <label for="3-stars" class="star">&#9733;</label>
+			  <input type="radio" id="2-stars" name="star" value="2" />
+			  <label for="2-stars" class="star">&#9733;</label>
+			  <input type="radio" id="1-star" name="star" value="1" />
+			  <label for="1-star" class="star">&#9733;</label>
+			</div>
 		</form>
 	</div>
 
 	<!-- SmartEditor 에서 필요한 javascript 로딩  -->
-	<script src="${pageContext.request.contextPath }/resources/SmartEditor/js/HuskyEZCreator.js"></script>
+	<script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 	<script>
 		var oEditors = [];
 		
@@ -42,7 +97,7 @@
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef: oEditors,
 			elPlaceHolder: "content",
-			sSkinURI: "${pageContext.request.contextPath}/resources/SmartEditor/SmartEditor2Skin.html",	
+			sSkinURI: "${pageContext.request.contextPath}/SmartEditor/SmartEditor2Skin.html",	
 			htParams : {
 				bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 				bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
