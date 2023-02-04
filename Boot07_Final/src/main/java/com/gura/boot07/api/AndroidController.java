@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,4 +42,48 @@ public class AndroidController {
 		names.add("원숭이");
 		return names;
 	}
+	
+	// 로그인 여부를 json으로 응답하는 메소드
+   @RequestMapping("/api/logincheck")
+   @ResponseBody
+   public Map<String, Object> logincheck(HttpSession session){
+	   // 테스트로 session의 아이디를 출력해보기.
+      System.out.println("세션 아이디:"+session.getId());
+      Map<String, Object> map=new HashMap<>();
+      // 세션 영역에 id라는 키값으로 저장된 값이 있는지 읽어와 본다.
+      String id=(String)session.getAttribute("id");
+      // 만일 로그인을 하지 않았다면
+      if(id == null) {
+         map.put("isLogin", false);
+         System.out.println("로그인중이 아닙니다");
+      }else {
+         map.put("isLogin", true);
+         map.put("id", id);
+         System.out.println(id+" 로그인중...");
+      }
+      return map;
+   }
+   @RequestMapping("/api/login")
+   @ResponseBody
+   public Map<String, Object> login(String id, String pwd, HttpSession session){
+      
+      System.out.println(id+"|"+pwd);
+      Map<String, Object> map=new HashMap<>();
+      if(id.equals("gura") && pwd.equals("1234")) {
+         map.put("isSuccess", true);
+         map.put("id", id);
+         session.setAttribute("id", id);
+      }else {
+         map.put("isSuccess", false);
+      }
+      return map;
+   }
+   @RequestMapping("/api/logout")
+   @ResponseBody
+   public Map<String, Object> logout(HttpSession session){
+      session.invalidate();
+      Map<String, Object> map=new HashMap<>();
+      map.put("isSuccess", true);
+      return map;
+   }
 }
