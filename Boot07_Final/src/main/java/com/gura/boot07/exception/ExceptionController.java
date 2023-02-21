@@ -1,48 +1,72 @@
 package com.gura.boot07.exception;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 /*
- *  Spring MVC가 동작중에 특정 type의 예외가 발생하면 해당 예외를 여기서 처리할 수 있다.
+ *  Spring MVC 가 동작중에 특정 type 의 예외가 발생하면  해당 예외를 여기서 처리 할수 있다.
  */
 @ControllerAdvice
 public class ExceptionController {
-	// Spring framework가 동작하는 중에 NotDeleteException type이
-	// 예외가 발생하면 호출되는 메소드	
+	
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<String> forbidden(ForbiddenException fe) {
+		//403 에러를 발생시키기 위한 ResponseEntity 객체를 생성해서 
+		ResponseEntity<String> re=new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		//리턴하면 에러가 응답된다.
+		return re;
+	}
+	
+	//spring framework 가 동작하는 중에 NotDeleteException type 의 
+	//예외가 발생하면 호출되는 메소드 
 	@ExceptionHandler(NotDeleteException.class)
-	public ModelAndView notDelete(NotDeleteException nde) { // 메소드의 인자로 예외 객체가 전달된다.
-		ModelAndView mView = new ModelAndView();
-		// exception이라는 키값으로 예외 객체를 담고
+	public ModelAndView notDelete(NotDeleteException nde) { //메소드의 인자로 예외 객체가 전달된다.
+		ModelAndView mView=new ModelAndView();
+		//exception 이라는 키값으로 예외 객체를 담고 
 		mView.addObject("exception", nde);
-		// view page (/WEB-INF/views/error/info.jsp)로 forward 이동해서 예외 정보 응답하기
+		//view page  ( /WEB-INF/views/error/info.jsp ) 로 forward 이동해서 예외 정보 응답하기  
 		mView.setViewName("error/info");
 		return mView;
 	}
 	
-	/*
-	 * Spring 프레임 워크는 DB관련 작업중에 sql Exception이 발생하면 
-	 * 해당 예외를 잡아서 DataAccessException을 발생시켜준다.
-	 * 따라서 Exception Controller에서 DataAccessException을 컨트롤할 준비가 
-	 * 되어있다면 해당 컨트롤러에서 직접 응답할 수 있다.
-	 * DataAccessException은 Transaction에 영향을 주는 Exception
-	 */
 	@ExceptionHandler(DeliveryException.class)
-	public ModelAndView delivery(DeliveryException de) {
-		ModelAndView mView = new ModelAndView();
-		mView.addObject("exception",de);
-		mView.addObject("info", "내년부터는 제주도도 배송 가능하도록 노력하겠습니다.");
+	public ModelAndView delivery(DeliveryException de){
+		ModelAndView mView=new ModelAndView();
+		mView.addObject("exception", de);
+		mView.addObject("info", "내년부터는 제주도도 배송가능하도록 노력하겠습니다.");
 		mView.setViewName("error/delivery");
 		return mView;
 	}
 	
-	// DB 관련 작업을 하다가 발생하는 모든 예외를 처리하는 컨트롤러
+	// DB 관련 작업을 하다가 발생하는 모든 예외를 처리하는 컨트롤러 
 	@ExceptionHandler(DataAccessException.class)
 	public ModelAndView dataAccess(DataAccessException dae) {
-		ModelAndView mView = new ModelAndView();
+		ModelAndView mView=new ModelAndView();
 		mView.addObject("exception", dae);
 		mView.setViewName("error/info");
 		return mView;
-	}
+	}		
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

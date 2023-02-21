@@ -4,13 +4,30 @@
 	<insert id="insert" parameterType="musicDto">
 		INSERT INTO board_music
 		(num, writer, title, artist, orgFileName, saveFileName, regdate)
-		VALUES(board_music_seq.NEXTVAL, #{writer}, #{title}, #{artist}, #{orgFileName}, #{saveFileName}, SYSDATE)
-		FROM board_music
+		VALUES(board_music_seq.NEXTVAL, #{writer}, #{title}, #{artist}, 
+			#{orgFileName}, #{saveFileName}, SYSDATE)
 	</insert>
-	<select id="getList" resultType = "musicDto">
+	<select id="getList" parameterType="java.lang.String" resultType="musicDto">
 		SELECT num, writer, title, artist, orgFileName, saveFileName, regdate
 		FROM board_music
+		WHERE writer = #{id}
 		ORDER BY num DESC
 	</select>
-
+	<select id="getData" parameterType="int" resultType="musicDto">
+		SELECT num, writer, title, artist, orgFileName, saveFileName, regdate
+		FROM board_music
+		WHERE num=#{num}
+	</select>
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_music
+		WHERE num=#{num}
+	</delete>
 </mapper>
+
+
+
+
+
+
+
+
