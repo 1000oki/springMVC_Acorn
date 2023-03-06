@@ -126,4 +126,5 @@ public class GalleryController {
 		return mView;
 	}
 	
+	
 }
