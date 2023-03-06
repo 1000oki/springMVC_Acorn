@@ -71,10 +71,10 @@ public class MusicController {
 	}
 	
 	//음악파일 업로드 폼 요청 처리 
-	@RequestMapping("/music/insertform")
+	@RequestMapping("/music/insertForm")
 	public String insertForm() {
 		
-		return "music/insertform";
+		return "music/insertForm";
 	}
 	//음악파일 업로드 요청처리 
 	@RequestMapping("/music/insert")
